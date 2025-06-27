@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Explorer Pro</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #2c3e50;
+      transition: background 0.4s, color 0.4s;
+    }
+    .dark-mode {
+      background: #1e1e1e;
+      color: #ecf0f1;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      animation: popIn 1s ease-out;
+    }
+
+    .intro {
+      text-align: center;
+      margin: 40px 0;
+      animation: fadeIn 2s;
+    }
+
+    .button {
+      padding: 12px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .quiz, .result {
+      animation: fadeIn 1s ease-out;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .theme-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="theme-switcher">
+    <button class="button" onclick="toggleTheme()">🌙 Toggle Theme</button>
+  </div>
+
+  <div class="container">
+    <h1>🚀 Career Explorer Pro</h1>
+
+    <div id="intro" class="intro">
+      <p>Curious about your dream job? Let’s find your career path with a quick quiz!</p>
+      <button class="button" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <div id="quiz" class="quiz hidden">
+      <div class="question">
+        <p>1. What excites you the most?</p>
+        <input type="radio" name="q1" value="dev"> Solving problems on a computer<br>
+        <input type="radio" name="q1" value="astro"> Exploring the unknown<br>
+        <input type="radio" name="q1" value="artist"> Creating something beautiful<br>
+      </div>
+
+      <div class="question">
+        <p>2. Pick your ideal workspace:</p>
+        <input type="radio" name="q2" value="dev"> Desk with triple monitors<br>
+        <input type="radio" name="q2" value="astro"> Space station view<br>
+        <input type="radio" name="q2" value="artist"> Studio with paints<br>
+      </div>
+
+      <div class="question">
+        <p>3. Favorite tool?</p>
+        <input type="radio" name="q3" value="dev"> Keyboard<br>
+        <input type="radio" name="q3" value="astro"> Telescope<br>
+        <input type="radio" name="q3" value="artist"> Paintbrush<br>
+      </div>
+
+      <button class="button" onclick="showResult()">Show Result</button>
+    </div>
+
+    <div id="result" class="result hidden">
+      <h2 id="careerTitle"></h2>
+      <p id="careerDesc"></p>
+      <button class="button" onclick="restart()">🔁 Restart</button>
+    </div>
+
+    <footer>
+      Crafted with ❤️ by SOJA 
+    </footer>
+  </div>
+
+  <script>
+    function startQuiz() {
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('quiz').classList.remove('hidden');
+    }
+
+    function showResult() {
+      const choices = ['q1', 'q2', 'q3'].map(q => {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        return selected ? selected.value : null;
+      });
+
+      if (choices.includes(null)) {
+        alert("Please answer all questions!");
+        return;
+      }
+
+      const counts = { dev: 0, astro: 0, artist: 0 };
+      choices.forEach(c => counts[c]++);
+
+      let topCareer = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+      const titleMap = {
+        dev: "💻 You’re a Developer!",
+        astro: "🚀 You’re an Astronaut!",
+        artist: "🎨 You’re an Artist!"
+      };
+      const descMap = {
+        dev: "You dream in code and love building things that work—and wow.",
+        astro: "You crave the stars, push boundaries, and dream beyond the atmosphere.",
+        artist: "You create with heart, soul, and a splash of color. Your world is your canvas."
+      };
+
+      document.getElementById('careerTitle').innerText = titleMap[topCareer];
+      document.getElementById('careerDesc').innerText = descMap[topCareer];
+
+      document.getElementById('quiz').classList.add('hidden');
+      document.getElementById('result').classList.remove('hidden');
+    }
+
+    function restart() {
+      location.reload();
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>

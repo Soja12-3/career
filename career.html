@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Explorer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .career-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .career-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .career-card:hover {
+      transform: scale(1.05);
+    }
+    .career-details {
+      margin-top: 30px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: none;
+    }
+    .back-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚀 Career Explorer</h1>
+
+  <div class="career-list" id="careerList">
+    <div class="career-card" onclick="showCareer('developer')">💻 Developer</div>
+    <div class="career-card" onclick="showCareer('astronaut')">🌌 Astronaut</div>
+    <div class="career-card" onclick="showCareer('artist')">🎨 Artist</div>
+    <div class="career-card" onclick="showCareer('chef')">🍳 Chef</div>
+    <div class="career-card" onclick="showCareer('detective')">🕵️ Detective</div>
+  </div>
+
+  <div class="career-details" id="careerDetails">
+    <div id="careerContent"></div>
+    <button class="back-btn" onclick="goBack()">⬅ Back to List</button>
+  </div>
+
+  <script>
+    const careers = {
+      developer: {
+        title: "💻 Web Developer",
+        tools: "HTML, CSS, JavaScript, React, Git",
+        life: "You write code, squash bugs, and build the future of the web.",
+        quote: `"I turned caffeine into websites."`
+      },
+      astronaut: {
+        title: "🌌 Astronaut",
+        tools: "Space suit, rocket science, bravery",
+        life: "Exploring the unknown, floating in zero gravity, and gazing at Earth from above.",
+        quote: `"It's not rocket science... oh wait, it is."`
+      },
+      artist: {
+        title: "🎨 Artist",
+        tools: "Brushes, imagination, chaos",
+        life: "Turning emotions into color, sketching late into the night, and chasing beauty everywhere.",
+        quote: `"Art speaks where words are unable to explain."`
+      },
+      chef: {
+        title: "🍳 Chef",
+        tools: "Knives, pans, taste buds",
+        life: "You sauté, slice, spice, and serve dreams on a plate.",
+        quote: `"Cooking is love made visible."`
+      },
+      detective: {
+        title: "🕵️ Detective",
+        tools: "Notebook, magnifying glass, sharp mind",
+        life: "You observe, deduce, unravel secrets—and always trust your gut.",
+        quote: `"Every clue tells a story. I just read between the lines."`
+      }
+    };
+
+    function showCareer(key) {
+      const details = careers[key];
+      const content = `
+        <h2>${details.title}</h2>
+        <p><strong>Core Tools:</strong> ${details.tools}</p>
+        <p><strong>Day in the Life:</strong> ${details.life}</p>
+        <p><em>${details.quote}</em></p>
+      `;
+      document.getElementById('careerContent').innerHTML = content;
+      document.getElementById('careerList').style.display = 'none';
+      document.getElementById('careerDetails').style.display = 'block';
+    }
+
+    function goBack() {
+      document.getElementById('careerDetails').style.display = 'none';
+      document.getElementById('careerList').style.display = 'flex';
+    }
+  </script>
+
+</body>
+</html>
